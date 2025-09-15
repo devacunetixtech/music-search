@@ -36,8 +36,19 @@ const MusicSearch = () => {
     }
   };
 
-  return (
-    <div className="max-w-full mx-auto px-4 py-12 bg-gradient-to-b from-gray-900 to-gray-800 min-h-screen">
+  // Skeleton card
+  const SkeletonCard = () => (
+    <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-5 animate-pulse">
+      <div className="w-full h-56 bg-gray-700 rounded-lg mb-4"></div>
+      <div className="h-4 w-2/3 bg-gray-700 rounded mb-2"></div>
+      <div className="h-3 w-1/2 bg-gray-700 rounded mb-3"></div>
+      <div className="h-3 w-full bg-gray-700 rounded"></div>
+    </div>
+  );
+
+return (
+  <div className="w-[99vw] bg-gradient-to-b from-gray-900 to-gray-800 overflow-x-hidden min-h-[100vh]">
+    <div className="px-2 py-12">
       <h1 className="text-center text-4xl md:text-5xl font-extrabold mb-10 text-white tracking-tight">
         🎧 Digital Music Store
       </h1>
@@ -63,9 +74,13 @@ const MusicSearch = () => {
 
       {/* Tracks Grid */}
       {loading ? (
-        <p className="text-center text-lg text-gray-300 animate-pulse">Loading...</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-8">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-8">
           {tracks.map((track) => (
             <div
               key={track.id}
@@ -98,7 +113,10 @@ const MusicSearch = () => {
         </div>
       )}
     </div>
-  );
+  </div>
+);
+
+
 };
 
 export default MusicSearch;
